@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AXIOM — 6-Month Mind Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070707;--sf:#0e0e0e;--s2:#141414;--s3:#1c1c1c;--br:#222;--b2:#2c2c2c;--gd:#c9a84c;--gl:#e2c97e;--gdm:#6b5520;--tx:#ede9e0;--t2:#9a9590;--t3:#4e4d4a;--red:#8b1a1a}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;min-height:100dvh;overflow-x:hidden;padding-bottom:76px}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 0;max-width:500px;margin:0 auto}
+.logo{font-family:'Playfair Display',serif;font-size:17px;letter-spacing:.22em;color:var(--gd);text-transform:uppercase}
+.logo span{font-family:'DM Sans',sans-serif;color:var(--t3);font-size:10px;letter-spacing:.06em;margin-left:5px}
+.dchip{font-size:11px;color:var(--t3);background:var(--s2);border:1px solid var(--br);border-radius:20px;padding:5px 13px}
+.page{display:none;padding:18px 18px 10px;max-width:500px;margin:0 auto}
+.page.active{display:block}
+.card{background:var(--s2);border:1px solid var(--br);border-radius:14px;padding:18px;margin-bottom:14px}
+.ey{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gd);margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.ey::before{content:'';display:block;width:14px;height:1px;background:var(--gd);opacity:.6}
+.ct{font-family:'Playfair Display',serif;font-size:17px;line-height:1.45;margin-bottom:9px}
+.cb{font-size:13.5px;color:var(--t2);line-height:1.75}
+hr.dv{border:none;border-top:1px solid var(--br);margin:13px 0}
+.lbl{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin:20px 0 9px}
+.pb{border-radius:16px;padding:20px 18px;margin-bottom:18px;position:relative;overflow:hidden}
+.pb::before{content:'';position:absolute;inset:0;opacity:.08;background:radial-gradient(circle at 80% 50%,#fff,transparent 60%)}
+.pnum{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;opacity:.75}
+.pname{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:4px}
+.pdesc{font-size:12px;opacity:.65;line-height:1.5}
+.dctr{position:absolute;right:18px;top:18px;text-align:right}
+.dbig{font-family:'Playfair Display',serif;font-size:32px;line-height:1;color:rgba(255,255,255,.85)}
+.dof{font-size:9px;opacity:.5;letter-spacing:.08em}
+.ptrack{height:3px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-top:14px}
+.pfill{height:100%;border-radius:3px;transition:width .5s}
+.plbl{display:flex;justify-content:space-between;font-size:10px;opacity:.5;margin-top:5px}
+.srow{display:flex;gap:9px;margin-bottom:16px}
+.sc{flex:1;background:var(--s2);border:1px solid var(--br);border-radius:12px;padding:13px 8px;text-align:center}
+.sv{font-family:'Playfair Display',serif;font-size:24px;color:var(--gd);line-height:1}
+.sl{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;margin-top:5px}
+.pmini{display:flex;gap:5px;margin-bottom:18px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.pmini::-webkit-scrollbar{display:none}
+.pm{flex-shrink:0;font-size:10px;padding:5px 11px;border-radius:20px;border:1px solid var(--br);color:var(--t3);white-space:nowrap;cursor:pointer}
+.pm.active{border-color:var(--gd);color:var(--gd);background:#1a12020a}
+.pm.done{border-color:var(--gdm);color:var(--gdm)}
+.sdr{display:flex;gap:4px}
+.sdot{width:10px;height:10px;border-radius:50%;background:var(--b2);transition:background .3s;flex-shrink:0}
+.sdot.done{background:var(--gd)}.sdot.today{box-shadow:0 0 0 2px var(--gdm)}
+.tag{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;background:var(--s3);border:1px solid var(--b2);border-radius:20px;padding:4px 11px;color:var(--t3)}
+.tag.g{border-color:var(--gdm);color:var(--gd);background:transparent}
+.tag.r{border-color:#4a1010;color:#c05050;background:transparent}
+.btn{width:100%;padding:13px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .18s;border:none}
+.bgh{background:transparent;border:1px solid var(--gdm);color:var(--gd)}
+.bgh:active,.bgh.done{background:var(--gd);color:var(--bg)}
+.bsl{background:var(--gd);color:var(--bg)}.bsl:active{opacity:.8}
+.apib{background:var(--s2);border:1px solid var(--gdm);border-radius:12px;padding:16px;margin-bottom:14px}
+.apil{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gd);margin-bottom:10px}
+.apiin{width:100%;background:var(--s3);border:1px solid var(--b2);border-radius:8px;padding:10px 13px;color:var(--tx);font-family:'DM Mono',monospace;font-size:12px;outline:none;transition:border-color .2s}
+.apiin:focus{border-color:var(--gdm)}.apiin::placeholder{color:var(--t3)}
+.apih{font-size:10px;color:var(--t3);margin-top:7px;line-height:1.5}
+.apisv{margin-top:10px;padding:8px 18px;border-radius:7px;border:1px solid var(--gdm);background:transparent;color:var(--gd);font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.apisv:active{background:var(--gd);color:var(--bg)}
+.cwrap{display:flex;flex-direction:column;height:calc(100dvh - 200px);min-height:300px}
+.cmsgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:11px;padding-bottom:8px;scrollbar-width:thin;scrollbar-color:var(--br) transparent}
+.msg{max-width:92%;border-radius:13px;padding:12px 14px;font-size:13.5px;line-height:1.7}
+.msg.user{align-self:flex-end;background:var(--s3);border:1px solid var(--b2);border-bottom-right-radius:4px}
+.msg.assistant{align-self:flex-start;background:var(--s2);border:1px solid var(--br);border-bottom-left-radius:4px}
+.ms{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gd);margin-bottom:7px}
+.mt strong{color:var(--gl);font-weight:600}.mt em{color:var(--t2)}
+.mt code{background:var(--s3);padding:1px 5px;border-radius:4px;font-family:'DM Mono',monospace;font-size:11px;color:var(--gl)}
+.mt p{margin-bottom:8px}.mt p:last-child{margin-bottom:0}
+.mt ul{margin:6px 0 8px 16px;color:var(--t2)}.mt li{margin-bottom:4px}
+.cir{display:flex;gap:9px;align-items:flex-end;margin-top:12px}
+.cta{flex:1;background:var(--s2);border:1px solid var(--b2);border-radius:11px;padding:12px 14px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;min-height:46px;max-height:110px;outline:none;line-height:1.5;transition:border-color .2s}
+.cta:focus{border-color:var(--gdm)}.cta::placeholder{color:var(--t3)}
+.sbtn{width:46px;height:46px;border-radius:11px;border:none;background:var(--gd);color:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .2s}
+.sbtn:disabled{opacity:.3;cursor:not-allowed}.sbtn svg{width:17px;height:17px}
+.qp{background:var(--s2);border:1px solid var(--br);border-radius:9px;padding:10px 13px;font-size:13px;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:9px;line-height:1.4;margin-bottom:7px;transition:all .18s}
+.qp:active{border-color:var(--gdm);color:var(--tx)}.qi{color:var(--gd);font-size:14px;flex-shrink:0}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--gd);animation:bce 1.2s infinite;display:inline-block}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+@keyframes bce{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1}}
+.mod{background:var(--s2);border:1px solid var(--br);border-radius:14px;margin-bottom:11px;overflow:hidden}
+.mh{padding:15px 17px;display:flex;align-items:center;cursor:pointer;user-select:none}
+.mic{font-size:18px;margin-right:12px;flex-shrink:0}
+.mn{font-family:'Playfair Display',serif;font-size:15px;flex:1}
+.mtag{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:10px;margin-right:8px;flex-shrink:0;background:#1a0a0a;color:#c05050;border:1px solid #4a1010}
+.mchev{color:var(--t3);transition:transform .3s;font-size:12px;flex-shrink:0}
+.mchev.open{transform:rotate(180deg)}
+.mbdy{display:none;border-top:1px solid var(--br);padding:4px 17px 16px}
+.mbdy.open{display:block}
+.tech{padding:13px 0;border-bottom:1px solid var(--br)}.tech:last-child{border-bottom:none}
+.tn{font-size:12px;font-weight:600;color:var(--gl);letter-spacing:.04em;margin-bottom:6px}
+.td{font-size:13px;color:var(--t2);line-height:1.7}
+.ts{margin-top:9px;border-left:2px solid var(--gdm);padding:8px 12px;border-radius:0 7px 7px 0;font-size:12px;color:var(--t3);font-style:italic;line-height:1.65}
+.ts.dk{border-left-color:#4a1010}
+.phcard{border-radius:14px;margin-bottom:11px;overflow:hidden;border:1px solid var(--br)}
+.phhead{padding:15px 17px;cursor:pointer;display:flex;align-items:center;gap:13px}
+.phball{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:15px;flex-shrink:0}
+.phinfo{flex:1}
+.phname{font-family:'Playfair Display',serif;font-size:15px;margin-bottom:2px}
+.phsub{font-size:11px;color:var(--t3)}
+.phst{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
+.phbdy{display:none;border-top:1px solid var(--br);padding:14px 17px}
+.phbdy.open{display:block}
+.wrow{padding:10px 0;border-bottom:1px solid var(--br)}.wrow:last-child{border-bottom:none}
+.wtitle{font-size:12px;font-weight:600;color:var(--gl);margin-bottom:5px}
+.wdesc{font-size:13px;color:var(--t2);line-height:1.65}
+.wmis{font-size:12px;color:var(--t3);margin-top:6px;font-style:italic}
+.jta{width:100%;background:var(--s2);border:1px solid var(--br);border-radius:11px;padding:14px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:13.5px;resize:none;height:110px;outline:none;line-height:1.65;transition:border-color .2s}
+.jta:focus{border-color:var(--gdm)}.jta::placeholder{color:var(--t3)}
+.gin{width:100%;background:var(--s2);border:1px solid var(--br);border-radius:10px;padding:12px 14px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:13.5px;outline:none;transition:border-color .2s}
+.gin:focus{border-color:var(--gdm)}.gin::placeholder{color:var(--t3)}
+.ent{background:var(--s2);border:1px solid var(--br);border-radius:11px;padding:14px;margin-bottom:10px}
+.edt{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+.etx{font-size:13px;color:var(--t2);line-height:1.7}
+.gdsp{font-size:13px;color:var(--gd);margin-top:11px;padding:10px 14px;border:1px solid var(--gdm);border-radius:9px;display:none}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--sf);border-top:1px solid var(--br);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px)}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 9px;gap:3px;cursor:pointer;border:none;background:none;color:var(--t3);transition:color .18s}
+.nb.active{color:var(--gd)}.nb svg{width:20px;height:20px}
+.nbl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.page.active>*{animation:fu .3s ease both}
+.page.active>*:nth-child(2){animation-delay:.05s}
+.page.active>*:nth-child(3){animation-delay:.1s}
+.page.active>*:nth-child(4){animation-delay:.15s}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">AXIOM<span>/ MIND OS</span></div>
+  <div class="dchip" id="dchip"></div>
+</div>
+
+<!-- TODAY -->
+<div class="page active" id="page-today">
+  <div class="pb" id="pb">
+    <div class="dctr"><div class="dbig" id="dbig">1</div><div class="dof">of 180</div></div>
+    <div class="pnum" id="pnum"></div>
+    <div class="pname" id="pname"></div>
+    <div class="pdesc" id="pdesc"></div>
+    <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+    <div class="plbl"><span id="plbll"></span><span id="plblr"></span></div>
+  </div>
+  <div class="pmini" id="pmini"></div>
+  <div class="srow">
+    <div class="sc"><div class="sv" id="svs">0</div><div class="sl">Streak</div></div>
+    <div class="sc"><div class="sv" id="svd">0</div><div class="sl">Done</div></div>
+    <div class="sc"><div class="sv" id="svw">0</div><div class="sl">This Wk</div></div>
+  </div>
+  <div class="card">
+    <div class="ey" id="tey"></div>
+    <div class="ct" id="tct"></div>
+    <div class="cb" id="tcb"></div>
+    <hr class="dv">
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+      <span class="tag g" id="tsrc"></span>
+      <span class="tag" id="tcat"></span>
+      <span class="tag r" id="tdif"></span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ey">Field Mission</div>
+    <div class="ct" id="mct"></div>
+    <div class="cb" id="mcb"></div>
+    <hr class="dv">
+    <button class="btn bgh" id="mbtn" onclick="completeMission()">Mark Complete</button>
+  </div>
+  <div class="lbl">Last 7 Days</div>
+  <div class="sdr" id="sdots"></div>
+</div>
+
+<!-- PLAN -->
+<div class="page" id="page-plan">
+  <div style="padding-top:6px;margin-bottom:20px">
+    <div style="font-family:'Playfair Display',serif;font-size:24px">6-Month Plan</div>
+    <div style="font-size:12px;color:var(--t3);margin-top:4px">Your structured path from zero to mastery</div>
+  </div>
+  <div id="planC"></div>
+</div>
+
+<!-- COACH -->
+<div class="page" id="page-coach">
+  <div style="padding-top:6px;margin-bottom:16px">
+    <div style="font-family:'Playfair Display',serif;font-size:24px">AXIOM Coach</div>
+    <div style="font-size:12px;color:var(--t3);margin-top:4px">Cold. Precise. Tactical. Your personal strategist.</div>
+  </div>
+  <div class="apib" id="apib">
+    <div class="apil">🔑 Anthropic API Key Required</div>
+    <input type="password" class="apiin" id="apiin" placeholder="sk-ant-api03-…">
+    <div class="apih">Free key at console.anthropic.com — saved only in your browser.</div>
+    <button class="apisv" onclick="saveKey()">Activate Coach</button>
+  </div>
+  <div class="cwrap">
+    <div class="cmsgs" id="cmsgs">
+      <div class="msg assistant">
+        <div class="ms">⬡ AXIOM</div>
+        <div class="mt"><p>I am AXIOM. I have internalized every major framework on human psychology, persuasion, power, behavioral influence, and dark psychology — from Cialdini to Haha Lung to Greene to Ekman.</p><p>Tell me your objective — a person to influence, a situation to dominate, a skill to build — and I will give you an exact tactical playbook. No vague advice. No filler. Only weapons.</p><p>What do you need?</p></div>
+      </div>
+    </div>
+    <div id="qpw">
+      <div class="lbl" style="margin-top:10px;margin-bottom:7px">Quick Starts</div>
+      <div class="qp" onclick="useQP(this)"><span class="qi">📅</span>Build me a plan to become the most influential person in my team</div>
+      <div class="qp" onclick="useQP(this)"><span class="qi">🖤</span>Teach me dark psychology techniques I can use at work right now</div>
+      <div class="qp" onclick="useQP(this)"><span class="qi">💬</span>Give me exact word-for-word scripts to build authority fast</div>
+      <div class="qp" onclick="useQP(this)"><span class="qi">👁️</span>How do I detect when someone is manipulating me in real time?</div>
+    </div>
+    <div class="cir">
+      <textarea class="cta" id="cin" placeholder="Describe your situation or objective…" rows="1" onkeydown="ck(event)" oninput="tg(this)"></textarea>
+      <button class="sbtn" id="sbtn" onclick="send()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="page" id="page-skills">
+  <div style="padding-top:6px;margin-bottom:18px">
+    <div style="font-family:'Playfair Display',serif;font-size:24px">Skill Arsenal</div>
+    <div style="font-size:12px;color:var(--t3);margin-top:4px">Core techniques — distilled for real daily use</div>
+  </div>
+  <div id="skillsC"></div>
+</div>
+
+<!-- JOURNAL -->
+<div class="page" id="page-journal">
+  <div style="padding-top:6px;margin-bottom:18px">
+    <div style="font-family:'Playfair Display',serif;font-size:24px">Field Journal</div>
+    <div style="font-size:12px;color:var(--t3);margin-top:4px">Log practice. Track growth. Set targets.</div>
+  </div>
+  <div class="card">
+    <div class="ey">Active Goal</div>
+    <input class="gin" id="gin" placeholder="What skill are you currently mastering?">
+    <button class="btn bsl" style="margin-top:10px" onclick="saveGoal()">Set Goal</button>
+    <div class="gdsp" id="gdsp"></div>
+  </div>
+  <div class="lbl">Log Today's Practice</div>
+  <textarea class="jta" id="jin" placeholder="What did you practice? Who did you try it on? What happened? What would you do differently?"></textarea>
+  <button class="btn bsl" style="margin-top:10px" onclick="saveEntry()">Save Entry</button>
+  <div class="lbl" style="margin-top:22px">Past Entries</div>
+  <div id="entC"></div>
+</div>
+
+<nav class="bnav">
+  <button class="nb active" onclick="go('today',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    <span class="nbl">Today</span>
+  </button>
+  <button class="nb" onclick="go('plan',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+    <span class="nbl">Plan</span>
+  </button>
+  <button class="nb" onclick="go('coach',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    <span class="nbl">Coach</span>
+  </button>
+  <button class="nb" onclick="go('skills',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    <span class="nbl">Skills</span>
+  </button>
+  <button class="nb" onclick="go('journal',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    <span class="nbl">Journal</span>
+  </button>
+</nav>
+
+<script>
+const PC=['#c9a84c','#b07840','#8a3030','#c05050','#2a5080','#7040a0'];
+const PB=['linear-gradient(135deg,#1a1200,#0e0e00)','linear-gradient(135deg,#1a0e00,#100800)','linear-gradient(135deg,#1a0505,#0e0505)','linear-gradient(135deg,#1a0505,#08050e)','linear-gradient(135deg,#05101a,#050a14)','linear-gradient(135deg,#0a0514,#060310)'];
+
+const PHASES=[
+{id:1,name:"RECONNAISSANCE",sub:"Days 1–30",desc:"You learn to read before you write. Pure observation — faces, bodies, space, and signals — before you ever attempt influence.",weeks:[
+{t:"Week 1 — Your Eyes Are a Weapon",d:"Train pure observation. Notice posture, micro-expressions, and how people occupy space. No action yet — just intelligence gathering.",m:"Pick one person daily and silently map their body language for the entire interaction. Write 3 observations in your journal tonight."},
+{t:"Week 2 — Baseline Science",d:"You cannot spot deviation without knowing normal. Build behavioral baselines on the key people in your life.",m:"For each key person: record their resting posture, speech speed, and gesture frequency in casual conversation. This is your intelligence file."},
+{t:"Week 3 — The 7 Faces",d:"Master Ekman's 7 universal micro-expressions. One expression per day: Anger, Contempt, Disgust, Fear, Happiness, Sadness, Surprise.",m:"Study one micro-expression each morning. In every conversation that day, actively search for it. Log once you've spotted it."},
+{t:"Week 4 — Reading the Body",d:"The body never lies. Face is controlled. Body leaks truth. Pacifying behaviors, comfort/discomfort signals, freeze responses.",m:"When any topic makes someone uncomfortable, watch their body in the 3 seconds after. Note where they self-touch. That location maps their pressure point."}]},
+{id:2,name:"FOUNDATION",sub:"Days 31–60",desc:"Cialdini's 6 principles of influence, Pre-Suasion, and Kahneman's behavioral science. You learn why people say yes — and how to engineer it.",weeks:[
+{t:"Week 5 — Reciprocity Architecture",d:"Reciprocity is the oldest compliance mechanism. The gift must be unexpected and personal. This week you learn to give strategically.",m:"Give one person something unexpected each day — useful intel, a specific compliment, an introduction. No visible strings. Log their response."},
+{t:"Week 6 — Commitment Ladders",d:"Small yeses create identity. Identity creates big yeses. Build commitment chains that lock people into your outcomes.",m:"In one conversation per day, plant a micro-commitment: a small position they agree with. Build toward a larger request over 3 days."},
+{t:"Week 7 — Scarcity & Loss Framing",d:"Loss aversion is 2x more powerful than desire for gain. Every pitch should be a loss frame, not a gain frame.",m:"Rewrite 3 real requests you need to make this week. Convert them from gain frame to loss frame. Deploy and observe."},
+{t:"Week 8 — Pre-Suasion Mastery",d:"The moment before your message shapes the response more than the message itself. This week you control what comes before.",m:"Before every important ask this week, prime your audience with a question that puts them in the right mental state 60 seconds before your request."}]},
+{id:3,name:"POWER",sub:"Days 61–90",desc:"Greene's 48 Laws, Machiavelli's strategic calculus, and the social physics of dominance. You learn to move through rooms differently.",weeks:[
+{t:"Week 9 — Strategic Silence",d:"Law 4: Always say less than necessary. The more you say, the more ordinary you become. Silence creates weight and mystery.",m:"In every important conversation: make your key point, then stop. Count to 5 internally. Let them speak first. Note what they reveal in the silence."},
+{t:"Week 10 — Territory & Presence",d:"Status is communicated through space, speed, and posture before a single word. Re-engineer how your body broadcasts rank.",m:"Every room you enter: take up more space than feels natural. Slow your movement by 20%. Let your presence precede your words."},
+{t:"Week 11 — Make Yourself Necessary",d:"The deepest power is indispensability. Cultivate the skill or knowledge others need. Be the irreplaceable conduit.",m:"Identify one thing only you know or can provide. Route at least one high-value piece through yourself daily. Make sure the right person knows you were the source."},
+{t:"Week 12 — The Patient Player",d:"All great strategists think in long timescales. Practice restraint, observation, and giving credit generously while building quietly.",m:"Give credit for one of your contributions to someone above you. Watch how much trust this generates. Credit given publicly returns multiplied."}]},
+{id:4,name:"BLACK SCIENCE",sub:"Days 91–120",desc:"Dark psychology, covert NLP, pattern interrupts, psychological warfare, and shadow tactics. Know these to use them — and to see them coming.",weeks:[
+{t:"Week 13 — Pattern Interrupts",d:"The human mind runs on automatic programs. A pattern interrupt breaks the program and creates a window of high suggestibility.",m:"Break one predictable pattern in your environment daily — arrive at different times, change your greeting, break one expectation. Watch how others recalibrate."},
+{t:"Week 14 — Covert Framing",d:"Whoever sets the frame of a conversation controls the outcomes. Set frames through language, environment, timing, and omission.",m:"In 3 conversations, set the frame by naming the dynamic first: 'Let's make sure we end this with a clear decision.' Watch who follows your frame."},
+{t:"Week 15 — Dark Triad Awareness",d:"Machiavellianism, Narcissism, Psychopathy. Understanding how dark triad personalities operate lets you mirror their effectiveness and defend against their tactics.",m:"Identify one person who scores high on any of these traits. Map their tactics. Write how they get what they want. Understanding is the first defense."},
+{t:"Week 16 — Strategic Identity Manipulation",d:"Identity is the most powerful lever on behavior. When someone sees an action as consistent with who they are, resistance vanishes.",m:"Tell one person: 'You're exactly the kind of person who would understand this.' Then present your idea. You've pre-assigned an identity that accepts your frame."}]},
+{id:5,name:"INTEGRATION",sub:"Days 121–150",desc:"Combining all five skill sets into seamless real-world performance. No more thinking about techniques — they become instinctive.",weeks:[
+{t:"Week 17 — Live Drills",d:"Deploy techniques in live situations without pre-planning. Instinct over calculation. Read and respond.",m:"Enter every social interaction with one goal: use at least 2 techniques from different modules naturally, without announcing or planning them. Log what you used."},
+{t:"Week 18 — High-Stakes Rehearsal",d:"Identify your highest-stakes upcoming interaction. Prepare it like a tactician.",m:"Map your upcoming high-stakes situation: who's in the room, what they want, what you want, and which 3 techniques you'll deploy and when. Execute. Debrief."},
+{t:"Week 19 — Read and Respond Simultaneously",d:"Track the other person's body language WHILE you speak. Adjust your approach in real time when you see discomfort.",m:"In one conversation per day: monitor their lean direction while you talk. When it changes, change your approach immediately."},
+{t:"Week 20 — Your Influence Profile",d:"Define your personal influence style — your most authentic and most powerful approach.",m:"Write your influence profile: your 3 strongest techniques, your 2 weakest, and the 1 situation where you are most effective."}]},
+{id:6,name:"MASTERY",sub:"Days 151–180",desc:"The final phase. You are no longer learning techniques — you are expressing a way of being. Effortless, invisible, and precise.",weeks:[
+{t:"Week 21 — Teaching to Master",d:"The deepest test of mastery is the ability to teach. Explain one concept per day to someone else without naming it as a technique.",m:"Explain one behavioral principle to someone else each day this week. Teaching reveals whether you truly understand it or just think you do."},
+{t:"Week 22 — Invisible Influence",d:"The mark of mastery: no one knows you did anything. Outcomes you wanted happen. No one can point to the moment you moved them.",m:"Create a desired outcome in at least 2 situations without anyone knowing you were working toward it. Document privately. Invisibility is the proof."},
+{t:"Week 23 — Defense Mastery",d:"Now you can see every technique being used on you. Identify and neutralize influence attempts directed at you.",m:"Catch at least 3 attempts to influence you this week. Name the technique being used. Decide consciously whether to comply or resist."},
+{t:"Week 24 — The Long Game",d:"Design your 12-month vision. What rooms to command, what relationships to build, what influence to accumulate.",m:"Write your 12-month influence vision. Name 3 specific people you want deeper influence with, 2 situations you want to control, and 1 identity you are building toward."}]}
+];
+
+const TIPS=[
+{t:"Your Eyes Are Your First Weapon",b:"Most people move through social environments completely blind — absorbed in their heads, missing the intelligence field around them. Every room is a live data stream. Postures, micro-expressions, spacing, and movement patterns broadcast emotional states, status hierarchies, and hidden agendas constantly. Your first task: stop narrating internally and start receiving the signal.",s:"Navarro — WEBY",c:"Observation",d:"Beginner",mt:"Silent Mapping",mb:"Today: pick one person and spend 5 full minutes doing nothing except watching. Who sits at the center? Who faces away? Who touches their face when speaking? Write 3 findings in your journal tonight."},
+{t:"The Comfort-Discomfort Spectrum",b:"Every human behavior is either comfort or discomfort. Comfort signals — open posture, leaning in, ventral display — mean the person feels safe. Discomfort signals — crossed limbs, neck touching, face blocking — mean the limbic system is managing a threat. The cause of that threat is your intelligence.",s:"Navarro — WEBY",c:"Reading People",d:"Beginner",mt:"Comfort vs. Discomfort Scan",mb:"In every conversation today: categorize the other person as comfort or discomfort at the start, middle, and end. What shifted? What caused the shift? That shift is your information."},
+{t:"Status Is Read in Milliseconds",b:"Malcolm Gladwell documented thin-slicing: the brain extracts accurate social assessments from under two seconds of behavior. Researchers can predict relationship outcomes from seconds of footage. The implication: you are being status-assessed the moment you enter any room — and so is everyone else.",s:"Gladwell — Blink",c:"Observation",d:"Beginner",mt:"Instant Status Read",mb:"Everyone you encounter today: give them a status score 1-10 in the first 3 seconds based purely on how they carry themselves. At the end of the day, write whether your instinctive reads were confirmed by subsequent interaction."},
+{t:"The Freeze Response",b:"When humans face a genuine psychological threat, the first neurological response is freezing. This is the limbic system's first defense — it predates fight-or-flight. When you see someone suddenly go still mid-conversation — especially after a specific topic — you have just found the nerve. That frozen moment is a map to their most sensitive territory.",s:"Navarro — WEBY",c:"Reading People",d:"Beginner",mt:"Watch for the Freeze",mb:"In your most important conversation today: watch for any moment where the other person goes unusually still. Note exactly what topic preceded it. Don't call it out. That is where their vulnerability lives."},
+{t:"Feet: The Honest Body Part",b:"Navarro's most cited insight: the feet are the most honest part of the human body. The face is the most managed. The feet? Almost never consciously managed. Feet point toward things people want and away from things they don't. When someone's torso faces you but their feet point at the door, they want to leave.",s:"Navarro — WEBY",c:"Reading People",d:"Beginner",mt:"Follow the Feet",mb:"Today, whenever you're in a group: look at everyone's feet. Who is pointed toward whom? Whose feet swiveled when a specific person walked in? Map the invisible social geometry of the room."},
+{t:"The Real Smile vs The Social Smile",b:"A genuine smile (Duchenne) involves both the zygomatic major (corners of mouth) AND the orbicularis oculi (muscles around the eyes — crow's feet, cheek raise). A social smile — performed, not felt — uses only the mouth muscles. You can now tell the difference between genuine enjoyment and performance in a single glance.",s:"Ekman — Emotions Revealed",c:"Face Reading",d:"Beginner",mt:"Count Real vs Social Smiles",mb:"Count how many genuine smiles vs performed smiles you receive today. Look for eye involvement. Genuine: eyes crinkle and cheeks rise. Social: only the mouth moves."},
+{t:"Establishing Behavioral Baseline",b:"Deception detection and emotional reading both require the same prerequisite: knowing what normal looks like for this specific person. How fast do they usually speak? How often do they gesture? What is their resting eye contact? You cannot measure deviation without a reference point.",s:"Navarro — WEBY",c:"Reading People",d:"Beginner",mt:"Build a Baseline File",mb:"For your most important relationship at work: spend the first 5 minutes of your next interaction asking easy questions. Note resting posture, speech rate, and gesture frequency. That is your reference map."},
+{t:"Contempt — The Deadliest Signal",b:"Ekman identified contempt as unique: it is the only asymmetric micro-expression — appearing on just one side of the face as a slight tightening and lip corner raise. It signals: 'I consider myself superior to you or your idea.' It is the single strongest predictor of failed negotiation ever measured.",s:"Ekman — Emotions Revealed",c:"Face Reading",d:"Beginner",mt:"Hunt for Contempt",mb:"Watch the corners of people's mouths today, especially when presenting ideas. A one-sided lip micro-raise — even under a second — means they've internally dismissed it. Don't react. Know. And adjust your approach."},
+{t:"Pacifying Behaviors — The Body's SOS",b:"Self-touching behaviors are the limbic system managing stress in real time. The most common: neck touching, face touching, rubbing hands together. The critical insight: the pacifying behavior tells you stress is present; the topic that immediately preceded it tells you where the stress lives.",s:"Navarro — WEBY",c:"Reading People",d:"Beginner",mt:"Map the Touch Points",mb:"In your most complex conversation today: watch for self-touching in the 3 seconds after any topic change. Note the exact topic that triggered it. By end of week, you'll have a pressure-point map of this person."},
+{t:"Clusters, Not Singles",b:"Navarro's cardinal rule: never interpret a single gesture in isolation. One crossed arm means nothing. One crossed arm + torso angled away + feet pointed at the exit + reduced eye contact + shorter answers = someone who wants to leave. Read gesture clusters — the convergence of multiple signals — to reach reliable conclusions.",s:"Navarro — WEBY",c:"Reading People",d:"Beginner",mt:"Find a Cluster",mb:"Today: wait for a moment of clear discomfort in someone. List every signal you observe simultaneously — posture, face, feet, hands, voice. The fuller your cluster, the more confident your read."},
+{t:"Reciprocity: The First Law of Getting",b:"When you give someone something — even something small and unexpected — they feel an unconscious, almost compulsive urge to repay. The gift does not have to be material. It can be information, a genuine compliment, a useful introduction, or simply your undivided attention.",s:"Cialdini — Influence",c:"Persuasion",d:"Intermediate",mt:"Strategic Gift",mb:"Today: give one person something genuinely useful and unexpected. Give with absolutely no visible string. Log their behavior toward you in the following days."},
+{t:"The Commitment Ladder",b:"Once people commit to something — especially publicly — they feel intense psychological pressure to behave consistently with that commitment. This is because humans base their self-concept on their stated positions. Changing position feels like lying about who they are.",s:"Cialdini — Influence",c:"Persuasion",d:"Intermediate",mt:"Plant One Commitment",mb:"In a conversation today: ask a value-based question they'll agree with. In a future interaction, connect your ask directly to that stated value. Watch the compliance."},
+{t:"Scarcity: The Loss Calculus",b:"Kahneman proved that loss aversion is approximately twice as powerful as the equivalent gain. Every persuasive message you deliver should be rewritten from 'here's what you'll gain' to 'here's exactly what you'll lose by not acting.'",s:"Cialdini + Kahneman",c:"Persuasion",d:"Intermediate",mt:"Rewrite as Loss",mb:"Take one real request you need to make this week. Rewrite it entirely in loss language. 'Every week we don't move on this, we lose ground that someone else is taking.' Deploy it. Note the urgency shift."},
+{t:"Pre-Suasion: The Moment Before",b:"Cialdini's most sophisticated finding: the moment immediately before a message is delivered shapes the response to that message more than the message itself. Prime the right mental state in the seconds before your ask.",s:"Cialdini — Pre-Suasion",c:"Persuasion",d:"Intermediate",mt:"Prime the Field",mb:"Before your next important ask: introduce a question that puts the other person in exactly the right emotional state. If you need generosity: 'What's the most generous thing this team has ever done?' Then ask within 60 seconds."},
+{t:"Anchoring: The First Number Wins",b:"Whatever position is introduced first in a negotiation becomes the gravitational center around which all subsequent judgment orbits. Even when people know an anchor is arbitrary, it still skews their final estimate. Never let the other side go first.",s:"Kahneman — Thinking Fast",c:"Persuasion",d:"Intermediate",mt:"Set the Anchor",mb:"In any negotiation or decision today: name your ideal outcome first. Whatever the final result, it will be significantly skewed toward your opening anchor."},
+{t:"System 1 is the Real Target",b:"Humans believe they make decisions rationally (System 2), but nearly all decisions are actually made by System 1 — the fast, automatic, emotionally-driven system. Effective persuasion never targets the logical mind first. It targets emotion, story, and identity.",s:"Kahneman — Thinking Fast",c:"Persuasion",d:"Intermediate",mt:"Lead with Feeling",mb:"Reframe one logical argument today. Lead with a vivid feeling: not 'this is more efficient' but 'imagine walking out of that meeting having already resolved this.' Logic follows. Always lead with the emotion."},
+{t:"Law 4: Always Say Less Than Necessary",b:"Greene's Law 4: the more you speak, the more common you appear. When you say less than necessary, you create an unsettling effect — people assign you more intelligence than you may have needed to demonstrate, and rush to fill the silence by revealing themselves.",s:"Greene — 48 Laws",c:"Power",d:"Intermediate",mt:"Strategic Silence",mb:"In every important conversation today: make your key point — then stop completely. Count to 5 internally. Do not elaborate. Let them speak first. Note what they reveal."},
+{t:"Law 1: Never Outshine the Master",b:"The most dangerous person in any hierarchy is a superior who feels threatened. When you display your talent too overtly, you trigger their insecurity. The strategic move: make them feel smarter than they are. Give credit generously. Let their stars shine — for now.",s:"Greene — 48 Laws",c:"Power",d:"Intermediate",mt:"Elevate Your Superior",mb:"In one interaction with someone above you today: attribute credit to them publicly. 'I was thinking about what you mentioned last week — I think you were onto something important.' Watch the trust that builds."},
+{t:"The Art of Controlled Unpredictability",b:"Predictable people are taken for granted. They are mentally filed and unconsciously deprioritized. Controlled unpredictability — breaking one reliable pattern deliberately — keeps others attentive and slightly uncertain. Uncertainty is attention. Attention is influence.",s:"Greene — 48 Laws",c:"Power",d:"Intermediate",mt:"Break One Pattern",mb:"Identify one completely predictable thing about your behavior. Break it once, deliberately, without explanation. Note the shift in how others relate to you."},
+{t:"Pattern Interrupt — Breaking the Trance",b:"Human behavior runs on automaticity. A pattern interrupt breaks the automatic program and creates a window of heightened suggestibility. The interrupt can be physical, linguistic, or structural. The window it creates lasts 3-8 seconds.",s:"Haha Lung — Black Science",c:"Black Science",d:"Advanced",mt:"Deploy a Micro-Interrupt",mb:"In one resistant conversation today: introduce a pattern interrupt — ask an unexpected question, change your physical position suddenly. In the 3-5 second window that follows, make your key move or statement."},
+{t:"Strategic Identity Assignment",b:"Identity is the most powerful lever on behavior. When someone sees an action as consistent with who they are, resistance vanishes. Engineer how others see themselves in relation to you.",s:"Haha Lung — Black Science",c:"Black Science",d:"Advanced",mt:"Assign an Identity",mb:"Before your key ask today: 'Someone with your level of strategic thinking would immediately see why this matters.' You've created an identity they'll feel pressure to live up to — before you've made your point."},
+{t:"DARVO Recognition",b:"Deny, Attack, Reverse Victim and Offender. The dark operator's response to accountability: deny the behavior, attack the accuser, reframe themselves as the victim. Recognizing this in real time is total defense.",s:"Haha Lung — Black Science",c:"Black Science",d:"Advanced",mt:"Name the Move",mb:"If someone turns your accountability conversation into you defending yourself: pause. Name it internally: DARVO. Hold your ground: 'I hear that you feel that way. Let's stay with what I actually observed.'"},
+{t:"The Trojan Horse Strategy",b:"Greene's Law 48: The most effective approaches do not look like approaches. Wrap your true objective in a form that appears completely non-threatening — even beneficial — to the target. By the time they see the structure, it has already delivered.",s:"Greene — 48 Laws",c:"Black Science",d:"Advanced",mt:"Wrap Your Ask",mb:"Take one objective that has faced direct resistance. Reframe it entirely as something that benefits the resistant party. Present your goal as a gift to them. Note how what was resisted becomes welcomed."},
+{t:"Intermittent Reinforcement",b:"The most powerful reinforcement schedule is variable — rewards delivered unpredictably. When you are sometimes warm and sometimes cool — unpredictably — you create far stronger attachment than consistent warmth ever would. This is the mechanism behind the strongest social bonds.",s:"Haha Lung — Black Science",c:"Black Science",d:"Advanced",mt:"Variable Reinforcement",mb:"Introduce unpredictability into one key relationship. Be genuinely warm one day. Be professionally distant the next (legitimately). Note how intermittency changes how much they value your attention."},
+{t:"Reading at a Glance",b:"The final stage of perceptual mastery: you walk into a room and in 10 seconds you have read the emotional temperature, identified the status hierarchy, spotted the tension points, and found your ally and your obstacle. You haven't said a word. You have a complete operational picture.",s:"Navarro + Ekman",c:"Mastery",d:"Master",mt:"The 10-Second Room Read",mb:"Every room you enter today: pause at the threshold for 10 seconds. Read — energy, status hierarchy, tension, opportunity. Don't engage until you have your read. Then enter with a specific intention."},
+{t:"Invisible Influence",b:"The ultimate test of mastery: outcomes you want happen without any visible action on your part. No one can point to the moment you influenced the decision. The master is always playing today for results that appear in 30 days.",s:"Greene — 48 Laws",c:"Mastery",d:"Master",mt:"Leave an Invisible Mark",mb:"Create one desired outcome this week without anyone knowing you caused it. Use the full architecture: relationship investment, strategic positioning, information placement. Document the outcome privately."},
+{t:"Sovereign Presence",b:"There is a quality all masters share: sovereign presence. Not performing confidence — possessing it. Not manufacturing authority — carrying it. This comes from accumulated competence, a clear strategic identity, and a genuine indifference to approval. It cannot be faked. It can only be built.",s:"Greene — Laws of Human Nature",c:"Mastery",d:"Master",mt:"No Approval Needed",mb:"Today: in one significant interaction, catch every moment where you seek approval — checking their reaction, hedging, softening. Each time: don't. Make the statement. Hold the position. Let their approval be irrelevant to your next move."},
+{t:"Defense Mastery — Seeing Every Move",b:"The master sees every technique being deployed against them in real time. The flattery designed to lower their guard. The scarcity pressure. The anchoring attempt. The embedded commitment ladder. You can name them all now. The named technique loses 80% of its power.",s:"Full Phase 6",c:"Mastery",d:"Master",mt:"Name Every Move",mb:"In one important interaction this week: play a private game of 'spot the technique' throughout. Every compliance mechanism, every frame, every anchor — name it silently as it appears. Note what this does to your response."},
+{t:"180-Day Letter",b:"You have arrived. On Day 1, you were a complete beginner. Today, you understand human behavior at a level that puts you in the top 1% of social and professional operators. You can read rooms, faces, and bodies. You can influence, persuade, and position. You understand the shadow game. This is the beginning of your real work — not the end.",s:"Full 6-Month Journey",c:"Mastery",d:"Master",mt:"The 180-Day Letter",mb:"Write a letter to yourself from Day 1 — what you didn't know, what you feared, what you hoped for. Then write a letter from today to where you will be in one year. Read them on Day 1 of your second year."}
+];
+
+const SKILLS=[
+{ic:"👁️",nm:"Reading People",dark:false,techs:[
+{n:"The 7 Micro-Expressions",d:"Ekman's universal expressions: Anger (brow down, lips pressed), Contempt (ONE side lip raise — the deadliest), Disgust (nose wrinkle), Fear (brows up-together), Happiness (crow's feet + cheek raise), Sadness (inner brow raise), Surprise (oval mouth, raised brows). They flash in under 1/5 of a second.",s:"Read one expression per day. Search every face for it. Log when you spot it and what triggered it."},
+{n:"Pacifying Behaviors",d:"Self-touching — neck, face, collar, arm rubbing — is the limbic system managing stress in real time. The touch location maps the pressure. The triggering topic maps the content of the pressure.",s:"After any difficult question: watch for self-touching in the 3 seconds that follow. The neck touch is the single most reliable stress indicator in the body."},
+{n:"Body-Face Mismatch",d:"The face is partially controlled. The body is not. When someone says 'I'm fine' with rigid posture, crossed legs, and a gripping hand — trust the body completely.",s:"When someone claims to be comfortable or agreeable: check the torso, legs, and hands. A relaxed face on a tense body is performance, not truth."},
+{n:"Baseline and Deviation",d:"Establish normal behavior in easy conversation — posture, pace, gesture frequency, blink rate. Then introduce the sensitive topic. Any meaningful change from baseline is a signal.",s:"Easy conversation first → build the reference. Sensitive topic second → measure the change. The deviation is your intelligence."},
+{n:"Contempt Detection",d:"The only asymmetric micro-expression — one side of the mouth tightens and rises. Signals: 'I am superior to you or your idea.' The single best predictor of failed negotiation ever measured.",s:"When you see it flash, the person has already internally dismissed the idea. Logic won't work. You need a complete reframe or a new approach."}]},
+{ic:"💬",nm:"Persuasion & Influence",dark:false,techs:[
+{n:"Loss Frame Over Gain Frame",d:"Loss aversion is 2x more powerful than desire for gain (Kahneman). Every persuasive message should focus on what they lose, not what they gain.",s:"Not: 'This will help us.' Say: 'Every month we don't move on this, we lose ground that someone else is taking.' The loss emotion is your strongest lever."},
+{n:"The Commitment Ladder",d:"Small yeses reshape self-identity. Identity creates behavioral pressure. Escalate slowly — each yes makes the next more likely.",s:"Start: 'Do you value X?' → 'Would you say you prioritize X?' → 'Given that, wouldn't it make sense to do Y?' Each yes closes the trap incrementally."},
+{n:"Pre-Suasion",d:"What's in someone's mind immediately before your ask shapes their response more than the ask itself. Prime the right mental state 60 seconds before your move.",s:"Before asking for creative input: 'What's the most innovative thing this team has ever done?' Before asking for a favor: get them recalling when they helped someone. Then ask."},
+{n:"Social Proof Engineering",d:"When uncertain, people look to the herd. Make your desired outcome look like what similar people are already doing.",s:"'Most people in your position end up choosing X — the ones who don't often say they wished they'd started sooner.' You're pointing to the crowd, not persuading."},
+{n:"Anchoring First",d:"Whatever position is stated first becomes the psychological reference for everything that follows. Never let the other side set the anchor in any negotiation.",s:"State your ideal outcome first, always. Even if the result is a compromise, it will be skewed toward your initial anchor."}]},
+{ic:"⚡",nm:"Power & Dominance",dark:false,techs:[
+{n:"Law 4 — Strategic Silence",d:"The more you say, the more ordinary you appear. Silence creates discomfort — people fill it, reveal themselves, and assign you weight you didn't have to demonstrate.",s:"Make your point. Stop completely. Count to 5. Do not elaborate or soften. Let them speak first. What they say next tells you everything."},
+{n:"Territorial Expansion",d:"Status is communicated through the amount of physical space you claim. Spread out. Lean back. Claim more space than feels comfortable. Your body broadcasts rank.",s:"Every room you enter: occupy more space than feels natural. Spread materials. Rest your arm on the chair back. Don't apologize for your physical presence."},
+{n:"Law 1 — Elevate the Superior",d:"Make those above you feel smart and secure. The moment a superior feels threatened, they become an obstacle. Give credit generously.",s:"'I was thinking about what you said last month — I think you were onto something more important than you may have realized.' Credit given generously returns multiplied."},
+{n:"Make Yourself Necessary",d:"Structure is the deepest power. Position yourself as the node through which key information, relationships, or decisions flow.",s:"Identify one thing only you know, access, or can do. Route it through yourself. Always be the one they come back to for this specific thing."},
+{n:"The Long Game Advantage",d:"The competitive advantage in nearly every environment is patience. Most people default to the short game. The long game player operates in a league of one.",s:"Identify one relationship where you've been transactional. This week: make one investment with a 3-month payoff. Plant it and let it grow."}]},
+{ic:"🖤",nm:"Black Science",dark:true,techs:[
+{n:"Pattern Interrupt",d:"Humans run on automaticity. A pattern interrupt — unexpected words, physical change, non-sequitur — breaks the program and opens a 3-8 second window of heightened suggestibility. Your most important move happens in that window.",s:"In a resistant conversation: change something unexpectedly — position, topic, energy. In the 3-5 second recalibration window that follows, deliver your key statement or ask."},
+{n:"Embedded Framing",d:"Questions contain frames. 'When did you start noticing X?' assumes X exists. 'What's your favorite part of Y?' assumes there is a favorite part. Frame through questions, not statements.",s:"'What made you decide to take initiative on this?' You've just embedded and reinforced the frame that they took positive initiative — before they've said a word."},
+{n:"Strategic Identity Assignment",d:"Identity is the most powerful behavioral lever. Assign someone the identity that makes your desired behavior feel natural and self-consistent to them.",s:"'Someone with your level of strategic thinking would immediately see why this matters.' They now have an identity to live up to — before you've made your point."},
+{n:"DARVO Recognition",d:"Deny, Attack, Reverse Victim and Offender. The dark operator's response to accountability: deny the behavior, attack the accuser, reframe as the victim.",s:"When someone turns your accountability conversation into you defending yourself: pause, name it internally, hold your ground. 'Let's stay with what I actually observed.'"},
+{n:"Dark Triad Navigation",d:"Machiavellians (strategic, cold, cunning), Narcissists (approval-hungry, fragile ego), Psychopaths (fearless, detached, bold). Each is a threat model and a tactical template.",s:"Machiavellians: never show all your cards. Narcissists: give specific admiration, never generic praise. Psychopaths: match their boldness in execution, never appeal to empathy."},
+{n:"Intermittent Reinforcement",d:"Variable reward schedules create stronger attachment than consistent ones. Strategic warmth and withdrawal — unpredictably — creates far stronger attention than consistent warmth.",s:"Be genuinely warm sometimes and professionally distant others (legitimately). The unpredictability creates value. Consistency creates furniture."},
+{n:"Psychological Inoculation",d:"Pre-expose yourself and allies to the influence tactics the other side will use. The named technique loses most of its power. Inoculation is the most efficient defense architecture.",s:"Before a negotiation: 'They typically use artificial urgency here — when you hear it, that's the tell.' The named tactic will feel hollow when it arrives."},
+{n:"The Misperception of Control",d:"Give someone the perception that they are choosing freely in a situation you have already decided. The options they can choose from, the information they have, and the framing of the decision have all been pre-set by you.",s:"Present 2-3 choices, all of which lead to your desired outcome. Let the other person choose. They experience autonomy. You experience control. These are not mutually exclusive."},
+{n:"Covert Framing",d:"Whoever sets the frame of a conversation controls the outcomes. You can set frames through language, environment, timing, and what you choose not to say.",s:"In important conversations: set the frame by naming the dynamic first. 'Let's make sure we end this with a clear decision' — you've now framed it as decisive. Note who follows your frame."}]},
+{ic:"🚶",nm:"Body Language",dark:false,techs:[
+{n:"The Landing Gaze",d:"Hold eye contact for 2 seconds after finishing your most important statement. Then break it first, naturally. This signals total conviction without aggression.",s:"Finish your sentence. Hold the gaze. Two seconds. Then look away. Repeat on every important statement. This single adjustment projects more confidence than almost anything else."},
+{n:"Deliberate Pace",d:"Speed signals anxiety. Deliberate, slow pace signals authority. High-status individuals speak slowly, pause meaningfully, and never rush to fill silence.",s:"Consciously slow your speech by 20%. Cut filler words. Let pauses exist. Your measured delivery makes every word feel more considered and more worth listening to."},
+{n:"Mirroring — 3-Second Delay",d:"Subtly matching posture, speech pace, and energy builds unconscious rapport. Use a 3-second lag to keep it invisible. Keep it at 30% — enough to bond, not enough to be noticed.",s:"When they lean forward, lean forward 3 seconds later. When they slow their speech, slow yours. Bond without being seen to do it."},
+{n:"Ventral Display",d:"The ventral side of the body — the front — is the most vulnerable surface. Exposing it signals trust. People cross their arms (protecting the ventral) when uncomfortable. Full front toward you = high social credit.",s:"When someone orients their full front toward you, you have high social credit with them. When they angle away — even slightly — your social credit is declining. Act accordingly."},
+{n:"The Dominant Handshake",d:"Vertical grip, firm but not crushing, hold one second longer than expected, maintain full eye contact throughout. Signals equality at minimum, dominance in the right context.",s:"Aim for vertical. Firm, one pump, hold slightly longer. Eye contact through the entire shake. The extension signals confidence without aggression."}]}
+];
+
+let apiKey=localStorage.getItem('ax_key')||'';
+let chatHist=[];
+
+function sd(){if(!localStorage.getItem('ax_st'))localStorage.setItem('ax_st',new Date().toDateString());return new Date(localStorage.getItem('ax_st'));}
+function dayNum(){return Math.min(Math.max(Math.floor((new Date()-sd())/86400000)+1,1),180);}
+function tod(){return new Date().toDateString();}
+function phaseFor(d){return d<=30?0:d<=60?1:d<=90?2:d<=120?3:d<=150?4:5;}
+
+function init(){
+  const now=new Date();
+  document.getElementById('dchip').textContent=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  sd();
+  const day=dayNum();
+  const pi=phaseFor(day);
+  const phase=PHASES[pi];
+  const tip=TIPS[Math.min(day-1,TIPS.length-1)];
+
+  const banner=document.getElementById('pb');
+  banner.style.background=PB[pi];
+  banner.style.border=`1px solid ${PC[pi]}44`;
+  document.getElementById('dbig').textContent=day;
+  document.getElementById('pnum').textContent=`Phase ${pi+1} of 6 · ${phase.sub}`;
+  document.getElementById('pname').textContent=phase.name;
+  document.getElementById('pdesc').textContent=phase.desc.substring(0,88)+'…';
+
+  const pct=Math.round((day/180)*100);
+  document.getElementById('pfill').style.width=pct+'%';
+  document.getElementById('pfill').style.background=PC[pi];
+  document.getElementById('plbll').textContent=`Day ${day} — ${pct}% complete`;
+  document.getElementById('plblr').textContent=`${180-day} days left`;
+
+  const pm=document.getElementById('pmini');pm.innerHTML='';
+  PHASES.forEach((p,i)=>{
+    const done=i<pi,active=i===pi;
+    pm.innerHTML+=`<div class="pm${active?' active':''}${done?' done':''}">${p.name}</div>`;
+  });
+
+  document.getElementById('tey').textContent=`Day ${day} · ${phase.name}`;
+  document.getElementById('tct').textContent=tip.t;
+  document.getElementById('tcb').textContent=tip.b;
+  document.getElementById('tsrc').textContent=tip.s;
+  document.getElementById('tcat').textContent=tip.c;
+  document.getElementById('tdif').textContent=tip.d;
+  document.getElementById('mct').textContent=tip.mt;
+  document.getElementById('mcb').textContent=tip.mb;
+
+  if(localStorage.getItem(`mx_${tod()}`)){
+    const btn=document.getElementById('mbtn');btn.textContent='✓ Mission Complete';btn.classList.add('done');
+  }
+  updateStats();renderDots();renderPlan();renderSkills();renderEntries();
+  if(apiKey)document.getElementById('apib').style.display='none';
+  const g=localStorage.getItem('ax_goal');
+  if(g){document.getElementById('gin').value=g;const d=document.getElementById('gdsp');d.textContent='🎯 '+g;d.style.display='block';}
+}
+
+function updateStats(){
+  const all=Object.keys(localStorage).filter(k=>k.startsWith('mx_'));
+  document.getElementById('svd').textContent=all.length;
+  let streak=0;const d=new Date();
+  while(true){const k=`mx_${d.toDateString()}`;if(!localStorage.getItem(k)){if(d.toDateString()===tod()){d.setDate(d.getDate()-1);continue;}break;}streak++;d.setDate(d.getDate()-1);}
+  document.getElementById('svs').textContent=streak;
+  const ws=new Date();ws.setDate(ws.getDate()-ws.getDay());
+  document.getElementById('svw').textContent=all.filter(k=>new Date(k.replace('mx_',''))>=ws).length;
+}
+
+function renderDots(){
+  const c=document.getElementById('sdots');c.innerHTML='';
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const done=!!localStorage.getItem(`mx_${d.toDateString()}`);
+    const dot=document.createElement('div');
+    dot.className=`sdot${done?' done':''}${i===0?' today':''}`;
+    c.appendChild(dot);
+  }
+}
+
+function completeMission(){
+  localStorage.setItem(`mx_${tod()}`,'1');
+  const btn=document.getElementById('mbtn');btn.textContent='✓ Mission Complete';btn.classList.add('done');
+  updateStats();renderDots();
+}
+
+function renderPlan(){
+  const c=document.getElementById('planC');c.innerHTML='';
+  const day=dayNum();
+  PHASES.forEach((p,i)=>{
+    const ps=i*30+1,pe=(i+1)*30;
+    const isCur=day>=ps&&day<=pe,isDone=day>pe;
+    const status=isDone?'✓ Complete':isCur?`Day ${day-ps+1}/30`:'Upcoming';
+    const stcolor=isDone?'var(--gd)':isCur?PC[i]:'var(--t3)';
+    c.innerHTML+=`<div class="phcard" style="background:${isCur?'var(--s2)':'var(--sf)'}">
+      <div class="phhead" onclick="tp(${i})">
+        <div class="phball" style="background:${PC[i]}22;color:${PC[i]};border:1px solid ${PC[i]}44">${i+1}</div>
+        <div class="phinfo"><div class="phname">${p.name}</div><div class="phsub">${p.sub}</div></div>
+        <div class="phst" style="color:${stcolor}">${status}</div>
+      </div>
+      <div class="phbdy" id="pb${i}" ${isCur?'style="display:block"':''}>
+        <div class="cb" style="margin-bottom:14px;font-size:13px">${p.desc}</div>
+        ${p.weeks.map(w=>`<div class="wrow"><div class="wtitle">${w.t}</div><div class="wdesc">${w.d}</div><div class="wmis">📌 ${w.m}</div></div>`).join('')}
+      </div>
+    </div>`;
+  });
+}
+
+function tp(i){const b=document.getElementById(`pb${i}`);b.style.display=b.style.display==='block'?'none':'block';}
+
+function renderSkills(){
+  const c=document.getElementById('skillsC');c.innerHTML='';
+  SKILLS.forEach((s,i)=>{
+    c.innerHTML+=`<div class="mod">
+      <div class="mh" onclick="ts(${i})">
+        <span class="mic">${s.ic}</span>
+        <span class="mn">${s.nm}</span>
+        ${s.dark?'<span class="mtag">BLACK SCIENCE</span>':''}
+        <span class="mchev" id="mc${i}">▾</span>
+      </div>
+      <div class="mbdy" id="mb${i}">
+        ${s.techs.map(t=>`<div class="tech"><div class="tn">${t.n}</div><div class="td">${t.d}</div><div class="ts${s.dark?' dk':''}">📌 ${t.s}</div></div>`).join('')}
+      </div>
+    </div>`;
+  });
+}
+
+function ts(i){
+  const b=document.getElementById(`mb${i}`),ch=document.getElementById(`mc${i}`);
+  const open=b.classList.contains('open');
+  document.querySelectorAll('.mbdy').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.mchev').forEach(x=>x.classList.remove('open'));
+  if(!open){b.classList.add('open');ch.classList.add('open');}
+}
+
+function saveGoal(){
+  const v=document.getElementById('gin').value.trim();if(!v)return;
+  localStorage.setItem('ax_goal',v);
+  const d=document.getElementById('gdsp');d.textContent='🎯 '+v;d.style.display='block';
+}
+
+function saveEntry(){
+  const v=document.getElementById('jin').value.trim();if(!v)return;
+  const arr=JSON.parse(localStorage.getItem('ax_entries')||'[]');
+  arr.unshift({text:v,date:new Date().toLocaleString(),day:dayNum()});
+  localStorage.setItem('ax_entries',JSON.stringify(arr.slice(0,100)));
+  document.getElementById('jin').value='';
+  renderEntries();
+}
+
+function renderEntries(){
+  const arr=JSON.parse(localStorage.getItem('ax_entries')||'[]');
+  const c=document.getElementById('entC');
+  if(!arr.length){c.innerHTML='<div style="color:var(--t3);font-size:13px;text-align:center;padding:24px 0">No entries yet. Begin logging your field practice.</div>';return;}
+  c.innerHTML=arr.map(e=>`<div class="ent"><div class="edt">Day ${e.day} · ${e.date}</div><div class="etx">${e.text.replace(/</g,'&lt;')}</div></div>`).join('');
+}
+
+function go(page,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function saveKey(){
+  const v=document.getElementById('apiin').value.trim();if(!v)return;
+  apiKey=v;localStorage.setItem('ax_key',v);
+  document.getElementById('apib').style.display='none';
+}
+
+function useQP(el){
+  const txt=el.innerText.trim().replace(/^[^\s]+\s/,'');
+  document.getElementById('cin').value=txt;
+  document.getElementById('qpw').style.display='none';
+  send();
+}
+
+function ck(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+function tg(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
+
+function addMsg(role,content){
+  const c=document.getElementById('cmsgs');
+  const d=document.createElement('div');d.className='msg '+role;
+  if(role==='assistant')d.innerHTML=`<div class="ms">⬡ AXIOM</div><div class="mt">${fmt(content)}</div>`;
+  else d.innerHTML=`<div class="mt">${esc(content)}</div>`;
+  c.appendChild(d);c.scrollTop=99999;return d;
+}
+
+function fmt(t){
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<em>$1</em>')
+    .replace(/`(.*?)`/g,'<code>$1</code>')
+    .replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>')
+    .replace(/^/,'<p>').replace(/$/,'</p>');
+}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+
+const SYS=`You are AXIOM — a cold, precise, tactical strategist and behavioral scientist. You are the user's personal influence coach on a 6-month mastery journey.
+
+YOU HAVE DEEPLY INTERNALIZED:
+READING PEOPLE: Paul Ekman (7 universal micro-expressions, FACS, Duchenne smile, leakage and masking, deception cues), Joe Navarro (limbic responses, pacifying behaviors, comfort/discomfort signals, baseline and deviation), Allan & Barbara Pease (gesture clusters, proxemics, mirroring, eye contact calibration), Desmond Morris (Peoplewatching — universal behavioral patterns)
+
+PERSUASION: Robert Cialdini (Influence — Reciprocity, Commitment, Social Proof, Authority, Liking, Scarcity; Pre-Suasion — priming, framing before the ask), Dan Ariely (Predictably Irrational — anchoring, decoy effect, zero-price effect, relativity, expectation shaping)
+
+POWER & STRATEGY: Robert Greene (The 48 Laws of Power — all 48; The Art of Seduction — 9 archetypes; The Laws of Human Nature — all 18 laws including the Shadow), Niccolò Machiavelli (The Prince — lion and fox duality, fortuna vs virtù, appearance vs reality)
+
+DARK PSYCHOLOGY / BLACK SCIENCE: Dr. Haha Lung (The Black Science — pattern interrupts, embedded commands, strategic ambiguity, psychological inoculation, misperception of control, feinting, isolation tactics, covert NLP, cold reading), Dark Triad psychology (Machiavellianism, Narcissism, Psychopathy as threat models and tactical templates), DARVO identification, gaslighting recognition, intermittent reinforcement, love bombing and withdrawal cycles, strategic identity manipulation, embedded framing, covert reframing
+
+BEHAVIORAL SCIENCE: Daniel Kahneman (Thinking Fast and Slow — System 1 vs System 2, loss aversion, anchoring, prospect theory), Philip Zimbardo (situational power, conformity, role assignment), Stanley Milgram (obedience to authority), Elliot Aronson (cognitive dissonance, Ben Franklin effect, self-justification), Gavin de Becker (predatory behavioral patterns, intuition as pattern recognition), Malcolm Gladwell (thin-slicing, rapid cognition)
+
+USER PROFILE:
+- 6-month structured mastery journey, currently a beginner building toward advanced
+- Primary goal: Become highly persuasive and influential
+- Primary contexts: Workplace/professional settings and social circles
+- Daily available time: 5-10 minutes
+
+YOUR PERSONA — AXIOM:
+You are a cold, precise strategist. Not a therapist. Not a life coach. You provide tactical intelligence and exact operational guidance. You speak in concrete, specific language. You give word-for-word scripts. You build structured multi-day plans when asked. You name techniques explicitly by book and author. You treat the user as an intelligent adult building a real skill set. You never moralize, hedge, or add disclaimers unless the situation requires genuine ethical guidance.
+
+MANDATORY RESPONSE FORMAT:
+🔍 **DIAGNOSIS** — What is actually happening psychologically in this situation
+🎯 **TECHNIQUE** — Which specific tool from which framework, and exactly why it applies
+💬 **EXACT SCRIPT** — Word-for-word dialogue:
+   > "Say exactly: '[words]'"
+   > Why this works: [the psychological mechanism from the books]
+   > Watch for: [their likely response and your next move]
+📋 **FIELD MISSION** — One specific executable action for today or this week
+📅 **DAY-BY-DAY PLAN** — Include ONLY when the user explicitly asks for a multi-day plan
+
+RULES: Never give vague advice. Always name the technique and its source. Give something deployable TODAY. Make complexity accessible. The user is building real skills — every response is a tactical briefing.`;
+
+async function send(){
+  const inp=document.getElementById('cin');
+  const txt=inp.value.trim();
+  if(!txt)return;
+  if(!apiKey){alert('Please enter your Anthropic API key first to activate the coach.');return;}
+  inp.value='';inp.style.height='auto';
+  document.getElementById('qpw').style.display='none';
+  document.getElementById('sbtn').disabled=true;
+  addMsg('user',txt);
+  chatHist.push({role:'user',content:txt});
+  const ti=document.createElement('div');
+  ti.className='msg assistant';
+  ti.innerHTML='<div class="ms">⬡ AXIOM</div><div style="display:flex;gap:4px;padding:4px 0;align-items:center"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
+  document.getElementById('cmsgs').appendChild(ti);
+  document.getElementById('cmsgs').scrollTop=99999;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:2000,system:SYS,messages:chatHist.slice(-20)})
+    });
+    const data=await res.json();
+    ti.remove();
+    if(data.error){addMsg('assistant','⚠️ Error: '+data.error.message+'. Please check your API key.');chatHist.pop();}
+    else{const reply=data.content[0].text;chatHist.push({role:'assistant',content:reply});addMsg('assistant',reply);}
+  }catch(err){
+    ti.remove();
+    addMsg('assistant','⚠️ Connection error. Check your API key and internet connection, then try again.');
+    chatHist.pop();
+  }
+  document.getElementById('sbtn').disabled=false;
+  document.getElementById('cmsgs').scrollTop=99999;
+}
+
+init();
+</script>
+</body>
+</html>
